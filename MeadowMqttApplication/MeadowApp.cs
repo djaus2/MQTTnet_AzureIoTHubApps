@@ -198,17 +198,19 @@ namespace MeadowApplication3
         private static string CreateTSasTokenfromDevicePrimaryKeyV2(string resourceUri, string keyName, string key, int durationTotalSecs = 0, int durationDays = 0, int durationHours = 0, int durationMins = 0)
         {
             //This fails on Meadow so jsut return a value from Powershell
-            return "SharedAccessSignature sr=ozz2hub.azure-devices.net%2Fdevices%2Fozz2dev&sig=gbNInMk4HZhgVGRzXHOry73u59aQ6zVAMdGddP1hK5k%3D&se=1696683918";
+            return Secrets.sasToken;
+
+            //////////////////
             TimeSpan sinceEpoch = DateTime.UtcNow - new DateTime(1970, 1, 1);
             int duration = 60 * 60 * 24 * 7;
-            //if (durationTotalSecs > 0)
-            //    duration = durationTotalSecs;
-            //else if (durationDays > 0)
-            //    duration = durationDays * 24 * 60 * 60;
-            //else if (durationHours > 0)
-            //    duration = durationHours * 60 * 60;
-            //else if (durationMins > 0)
-            //    duration = durationMins * 60;
+            if (durationTotalSecs > 0)
+                duration = durationTotalSecs;
+            else if (durationDays > 0)
+                duration = durationDays * 24 * 60 * 60;
+            else if (durationHours > 0)
+                duration = durationHours * 60 * 60;
+            else if (durationMins > 0)
+                duration = durationMins * 60;
             var expiry = Convert.ToString((int)sinceEpoch.TotalSeconds + duration);
             string stringToSign = HttpUtility.UrlEncode(resourceUri) + "\n" + expiry;
             HMACSHA256 hmac = new HMACSHA256(Convert.FromBase64String(key));
