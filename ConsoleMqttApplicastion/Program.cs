@@ -33,11 +33,37 @@ namespace ConsoleMqttApplicastion
 {
     internal class Program
     {
-
         static void Main(string[] args)
         {
             Console.WriteLine("MQTTnet to Azure IOT Hub Device Console App");
             MqttConnect().GetAwaiter();
+        }
+        /*
+         * Powershell Command to get SAS Token
+         az iot hub generate-sas-token --hub-name HUBNAME --device-id DEVICEID --resource-group AZURERESOURCEGROUP --login IOTHUBCONNECTIONSTRIN
+         Also -du optional parameter for duration: Valid token duration in seconds.  Default: 3600, 1 hr
+         */
+        //From https://stackoverflow.com/questions/50814994/how-to-generate-sas-token-for-secure-connection-to-azure-iot-hub
+        private static string CreateTSasTokenfromDevicePrimaryKeyV2(string resourceUri, string keyName, string key, int durationTotalSecs = 0, int durationDays = 0, int durationHours = 0, int durationMins = 0)
+        {
+            TimeSpan sinceEpoch = DateTime.UtcNow - new DateTime(1970, 1, 1);
+            int duration = 60 * 60 * 24 * 7;
+            if (durationTotalSecs > 0)
+                duration = durationTotalSecs;
+            else if (durationDays > 0)
+                duration = durationDays * 24 * 60 * 60;
+            else if (durationHours > 0)
+                duration = durationHours * 60 * 60;
+            else if (durationMins > 0)
+                duration = durationMins * 60;
+            var expiry = Convert.ToString((int)sinceEpoch.TotalSeconds + duration);
+            string stringToSign = HttpUtility.UrlEncode(resourceUri) + "\n" + expiry;
+            HMACSHA256 hmac = new HMACSHA256(Convert.FromBase64String(key));
+            var signature = Convert.ToBase64String(hmac.ComputeHash(Encoding.UTF8.GetBytes(stringToSign)));
+            var sasToken = String.Format(CultureInfo.InvariantCulture,
+                "SharedAccessSignature sr={0}&sig={1}&se={2}", HttpUtility.UrlEncode(resourceUri), HttpUtility.UrlEncode(signature), expiry, keyName);
+            //"SharedAccessSignature sr={0}&sig={1}&se={2}&skn={3}", HttpUtility.UrlEncode(resourceUri), HttpUtility.UrlEncode(signature), expiry, keyName);
+            return sasToken;
         }
 
         private static IManagedMqttClient _mqttClient;
@@ -116,14 +142,16 @@ namespace ConsoleMqttApplicastion
             // https://dev.to/eduardojuliao/basic-mqtt-with-c-1f88
             try
             {
+                string SasToken = CreateTSasTokenfromDevicePrimaryKeyV2($"{Secrets.HubName}.azure-devices.net/devices/{Secrets.DeviceId}", "Primary", Secrets.DevicePrimaryKey,0,1);
+
                 MqttClientOptionsBuilder builder = new MqttClientOptionsBuilder()
-                                        .WithClientId(Secrets.deviceId)
+                                        .WithClientId(Secrets.DeviceId)
                                         .WithTls(new MqttClientOptionsBuilderTlsParameters()
                                         {
                                             UseTls = true, 
                                             SslProtocol = SslProtocols.Tls
                                         })
-                                        .WithCredentials(Secrets.username, Secrets.password)
+                                        .WithCredentials(Secrets.username, SasToken)
                                         .WithKeepAlivePeriod(TimeSpan.FromSeconds(3600))
                                         .WithCleanSession(true)
                                         //.WithAuthentication(method,data)
