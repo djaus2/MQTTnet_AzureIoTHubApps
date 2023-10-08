@@ -5,6 +5,7 @@ Send Telemetry to an Azure IoT Hub using MQTTnet API. Also send CD Messages as w
 
 - .Net Core 3.1 Console **_Works_**
 - Meadow app. **_Fails to connect_**
+  - Now using Meadow.MQTTnet Nuget package rather than MQTTnet package. Still fails to connect.
 
 ## Links
 - https://github.com/dotnet/MQTTnet _(MQTTnet repository)_
