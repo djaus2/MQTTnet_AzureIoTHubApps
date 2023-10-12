@@ -25,7 +25,7 @@ Suggest using Azure IoT Explorer to monitor telemetry and to send CD messages. [
 - Meadow Apps Start here: [djaus2/Meadow.ProjectLab.Extensions](https://github.com/djaus2/Meadow.ProjectLab.Extensions)
 
 ## Update
-Now includes method to generate Sas Token from Device Primary Key. Fails on Meadow so use Powershell on AzCli to get fixed value.
+Now includes method to generate Sas Token from Device Primary Key. Fails on Meadow so for that use GenerateSas or Powershell script (_in source code)_ on AzCli to get fixed value.
 
 ## Sample Secrets.cs
 ```cs
