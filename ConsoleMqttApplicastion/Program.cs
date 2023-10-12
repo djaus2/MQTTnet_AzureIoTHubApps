@@ -1,13 +1,10 @@
 ﻿using System;
-using System.Text.Json.Serialization;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using Info;
 
-
 using Newtonsoft.Json;
-using System.Configuration;
 
 // https://learn.microsoft.com/en-us/azure/iot/iot-mqtt-connect-to-iot-hub
 
@@ -16,17 +13,15 @@ using MQTTnet.Client.Connecting;
 using MQTTnet.Client.Disconnecting;
 using MQTTnet.Client.Options;
 using MQTTnet.Extensions.ManagedClient;
-using MQTTnet.Adapter;
 using MQTTnet.Client.Receiving;
 using System.Security.Authentication;
 using System.Globalization;
 using System.Security.Cryptography;
 using System.Web;
-//using MQTTnet.Client.Extensions.AzureIoT;
 using MQTTnet.Client;
 using Microsoft.Azure.Devices.Client;
-using static Microsoft.Azure.Amqp.Serialization.SerializableType;
-using System.Runtime.Intrinsics.X86;
+
+using System.Net;
 //https://dev.to/eduardojuliao/basic-mqtt-with-c-1f88
 
 namespace ConsoleMqttApplicastion
@@ -37,6 +32,28 @@ namespace ConsoleMqttApplicastion
         {
             Console.WriteLine("MQTTnet to Azure IOT Hub Device Console App");
             MqttConnect().GetAwaiter();
+        }
+
+        static int mode = 2;
+        public static string Encode(string msg)
+        {
+            string str  = "";
+            switch (mode)
+            {
+                case 0:
+                    str = HttpUtility.UrlEncode(msg);
+                    break;
+                case 1:
+                    str =Uri.EscapeUriString(msg);
+                    break;
+                case 2:
+                    str =Uri.EscapeDataString(msg);
+                    break;
+                case 3:
+                    str = WebUtility.HtmlEncode(msg);
+                    break;
+            }
+            return str;
         }
         /*
          * Powershell Command to get SAS Token
@@ -57,12 +74,15 @@ namespace ConsoleMqttApplicastion
             else if (durationMins > 0)
                 duration = durationMins * 60;
             var expiry = Convert.ToString((int)sinceEpoch.TotalSeconds + duration);
-            string stringToSign = HttpUtility.UrlEncode(resourceUri) + "\n" + expiry;
+            string stringToSign = Encode(resourceUri) + "\n" + expiry;
             HMACSHA256 hmac = new HMACSHA256(Convert.FromBase64String(key));
             var signature = Convert.ToBase64String(hmac.ComputeHash(Encoding.UTF8.GetBytes(stringToSign)));
+            Console.WriteLine(signature);
+            string nmx = Encode(signature);
             var sasToken = String.Format(CultureInfo.InvariantCulture,
-                "SharedAccessSignature sr={0}&sig={1}&se={2}", HttpUtility.UrlEncode(resourceUri), HttpUtility.UrlEncode(signature), expiry, keyName);
+                "SharedAccessSignature sr={0}&sig={1}&se={2}", Encode(resourceUri), Encode(signature), expiry, keyName); ;
             //"SharedAccessSignature sr={0}&sig={1}&se={2}&skn={3}", HttpUtility.UrlEncode(resourceUri), HttpUtility.UrlEncode(signature), expiry, keyName);
+           Console.WriteLine(sasToken);;
             return sasToken;
         }
 

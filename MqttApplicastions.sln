@@ -7,6 +7,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ConsoleMqttApplicastion", "
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MeadowMqttApplication", "MeadowMqttApplication\MeadowMqttApplication.csproj", "{5CD23FCA-D394-4EE3-A93C-9615625A9516}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GenerateSas", "GenerateSas\GenerateSas.csproj", "{DDBF714E-2B1B-4FCA-B471-D44EC2DDC1C8}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -23,6 +25,10 @@ Global
 		{5CD23FCA-D394-4EE3-A93C-9615625A9516}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5CD23FCA-D394-4EE3-A93C-9615625A9516}.Release|Any CPU.Build.0 = Release|Any CPU
 		{5CD23FCA-D394-4EE3-A93C-9615625A9516}.Release|Any CPU.Deploy.0 = Release|Any CPU
+		{DDBF714E-2B1B-4FCA-B471-D44EC2DDC1C8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DDBF714E-2B1B-4FCA-B471-D44EC2DDC1C8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DDBF714E-2B1B-4FCA-B471-D44EC2DDC1C8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DDBF714E-2B1B-4FCA-B471-D44EC2DDC1C8}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
