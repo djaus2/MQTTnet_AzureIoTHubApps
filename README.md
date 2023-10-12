@@ -8,9 +8,9 @@ Send Telemetry to an Azure IoT Hub using MQTTnet API. Also send CD Messages as w
 - GenerateSas **_Works_**
   - Generate SasToken, as per Console app, and copies to clipbaord for Medow app.
 - Meadow app. **_Works_**
-   - Does not use Mqtt
-  - Now using Meadow.MQTTnet Nuget package rather than MQTTnet package. Still fails to connect.
-  - SasTokens generated here don't connect. So paste token from GenerateSas app in Secrets.cs
+  - Now using Meadow.MQTTnet Nuget package rather than MQTTnet package..
+  - _Does not use MQTTnet.Extensions.ManagedClient (as does Console app) as not supported._
+  - _SasTokens generated here don't connect. So paste token from GenerateSas app in Secrets.cs_
 
 ## Links
 - https://github.com/dotnet/MQTTnet _(MQTTnet repository)_
