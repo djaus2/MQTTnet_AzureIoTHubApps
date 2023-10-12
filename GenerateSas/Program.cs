@@ -36,6 +36,7 @@ using System.Reflection;
 
 namespace ConsoleMqttApplicastion
 {
+    //Generate SasToken
     internal class Program
     {
         static void Main(string[] args)
