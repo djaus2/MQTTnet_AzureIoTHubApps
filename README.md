@@ -48,7 +48,7 @@ namespace MeadowApplication3
         public static string WIFI_NAME = "";
         public static string WIFI_PASSWORD = "";
 
-        public static string IOT_CONFIG_IOTHUB_FQDN = "HUBNASME.azure-devices.net";
+        public static string IOT_CONFIG_IOTHUB_FQDN = "HUBNAME.azure-devices.net";
 
         public static string DeviceConnectionString = "";
 
