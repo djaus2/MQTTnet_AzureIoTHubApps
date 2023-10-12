@@ -363,3 +363,4 @@ MigrationBackup/
 FodyWeavers.xsd
 /MeadowMqttApplication/secrets.cs
 /ConsoleMqttApplicastion/secrets.cs
+*.cs
