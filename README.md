@@ -50,13 +50,10 @@ namespace MeadowApplication3
 
         public static string IOT_CONFIG_IOTHUB_FQDN = "HUBNAME.azure-devices.net";
 
-        public static string DeviceConnectionString = "";
-
         public static string DeviceId = "";
         public static string HubName = "";
-        public static string DevicePrimaryKey = ""; //As in DeviceConnectionString
+        public static string DevicePrimaryKey = ""; 
         public static int MqttPort = 8883;
-
 
         //INFO https://learn.microsoft.com/en-us/azure/iot-hub/iot-hub-devguide-messages-c2d
         public static string subTopic = "devices/+/messages/devicebound/#";
