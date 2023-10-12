@@ -12,7 +12,7 @@ Send Telemetry to an Azure IoT Hub using MQTTnet API. Also send CD Messages as w
   - _Does not use MQTTnet.Extensions.ManagedClient (as does Console app) as not supported._
   - _SasTokens generated here don't connect. So paste token from GenerateSas app in Secrets.cs_
 
- > Nb: **Cloud to Device Messages** are implmented including **Message Properties**. But **Direct Method**s are not implemented.
+ > Nb: **Cloud to Device Messages** are implmented including **Message Properties**. But **Direct Method**s are not implemented. No Modelling/Twinng implemented.
 
 ## Monitoring
 Suggest using Azure IoT Explorer to monitor telemetry and to send CD messages. [About Azure IoT Explorer](https://learn.microsoft.com/en-us/azure/iot/howto-use-iot-explorer)
