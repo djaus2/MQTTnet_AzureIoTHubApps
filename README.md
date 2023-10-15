@@ -19,6 +19,7 @@ Also, no Modelling/Twinning implemented.
 Suggest using Azure IoT Explorer to monitor telemetry and to send CD messages. [About Azure IoT Explorer](https://learn.microsoft.com/en-us/azure/iot/howto-use-iot-explorer)
 
 ## Links
+- [Blog about Meadow Project Lab](https://davidjones.sportronics.com.au/med/WildernessLabs_Project_Lab-About_Project_Lab_V3-med.html)
 - https://github.com/dotnet/MQTTnet _(MQTTnet repository)_
 - [Communicate with an IoT hub using the MQTT protocol](https://learn.microsoft.com/en-us/azure/iot/iot-mqtt-connect-to-iot-hub)
 - https://dev.to/eduardojuliao/basic-mqtt-with-c-1f88 _(Console Code was derived from this)_
